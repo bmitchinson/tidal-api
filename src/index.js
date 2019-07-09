@@ -554,6 +554,28 @@ class Tidal {
   }
 
   /**
+  * delete a playlist by its uuid
+  * @param {string} uuid - playlist uuid
+  * @example tidal.deletePlaylist('1c5d01ed-4f05-40c4-bd28-0f73099e9648')
+  * // returns a promise that resolves to: true
+  * @returns {Promise}
+  * @fulfil {Boolean} - true
+  * @reject {Error} - error object
+  */
+  async deletePlaylist(uuid) {
+
+    const res = await this.api({
+      method: 'DELETE',
+      url: `/playlists/${uuid}?${this.params}`,
+    });
+
+    if (res.status === 204) {
+      return true;
+    }
+    return res.data;
+  }
+
+  /**
   * get playlist tracks by playlist uuid
   * @param {string} uuid - playlist uuid
   * @example tidal.getPlaylistTracks('1c5d01ed-4f05-40c4-bd28-0f73099e9648')
